@@ -14,10 +14,10 @@
 ActiveRecord::Schema.define(version: 20160408034703) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "name"
-    t.text     "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.text     "password",   limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
 end
