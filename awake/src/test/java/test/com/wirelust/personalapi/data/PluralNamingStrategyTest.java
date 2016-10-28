@@ -1,6 +1,6 @@
 package test.com.wirelust.personalapi.data;
 
-import com.wirelust.personalapi.data.jpa.PluralNamingStrategy;
+import com.wirelust.aa.data.jpa.PluralNamingStrategy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

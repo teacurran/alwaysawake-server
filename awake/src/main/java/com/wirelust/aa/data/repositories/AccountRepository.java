@@ -1,0 +1,68 @@
+package com.wirelust.aa.data.repositories;
+
+import com.wirelust.aa.data.model.Account;
+import com.wirelust.aa.util.AAConstants;
+import com.wirelust.aa.util.StringUtils;
+import org.apache.deltaspike.data.api.AbstractEntityRepository;
+import org.apache.deltaspike.data.api.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Date: 5/22/15
+ *
+ * @author T. Curran
+ */
+@Repository
+public abstract class AccountRepository extends AbstractEntityRepository<Account, Long> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AccountRepository.class);
+
+	public abstract Account findAnyByEmail(final String inEmail);
+
+	public abstract Account findAnyByUsernameNormalized(final String inUsername);
+
+	public Account findAnyByAccountIdOrUsername(final String inAccountId) {
+
+		Account account;
+		try {
+			// if the ID passed in is numeric, return it even if we don't find anything
+			// there is no point in searching by username
+			account = findBy(Long.parseLong(inAccountId));
+			return account;
+		} catch (NumberFormatException nfe) {
+			// do nothing, perhaps they passed in a username
+			LOGGER.debug("account is not numeric, switching to username check");
+		}
+
+		account = findAnyByUsername(inAccountId);
+
+		return account;
+	}
+
+	public Account findAnyByUsername(final String inUsername) {
+		return findAnyByUsernameNormalized(StringUtils.normalizeUsername(inUsername));
+	}
+
+	public boolean usernameExists(final String inUsername) {
+		Account restrictedUsername = findAnyByUsernameNormalized(StringUtils.normalizeUsername(inUsername));
+		return restrictedUsername != null;
+	}
+
+	public boolean usernameIsValid(final String inUsername) {
+
+		if (inUsername == null) {
+			return false;
+		}
+
+		if (!inUsername.matches(AAConstants.USERNAME_PATTERN)) {
+			return false;
+		}
+
+		// make sure the username is not all numeric
+		if (inUsername.matches("^[0-9]+$")) {
+			return false;
+		}
+		return true;
+	}
+}

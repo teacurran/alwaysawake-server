@@ -43,7 +43,7 @@
 		<version.surefire>2.19.1</version.surefire>
 		<version.war.plugin>2.1.1</version.war.plugin>
 		<version.mysql.connector>5.1.28</version.mysql.connector>
-		<version.wildfly>10.0.0.Final</version.wildfly>
+		<version.wildfly>8.2.0.Final</version.wildfly>
 	</properties>
 
 	<modules>

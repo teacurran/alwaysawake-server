@@ -7,14 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 import javax.ws.rs.core.Response;
 
-import com.wirelust.personalapi.api.v1.V1ApplicationClient;
-import com.wirelust.personalapi.api.v1.representations.AccountType;
-import com.wirelust.personalapi.api.v1.representations.ApiErrorType;
-import com.wirelust.personalapi.api.v1.representations.AuthType;
-import com.wirelust.personalapi.api.v1.representations.EnumErrorCode;
-import com.wirelust.personalapi.data.model.ApiApplication;
-import com.wirelust.personalapi.data.model.RestrictedUsername;
-import com.wirelust.personalapi.util.StringUtils;
+import com.wirelust.aa.api.v1.V1ApplicationClient;
+import com.wirelust.aa.api.v1.representations.AccountType;
+import com.wirelust.aa.api.v1.representations.ApiErrorType;
+import com.wirelust.aa.api.v1.representations.AuthType;
+import com.wirelust.aa.api.v1.representations.EnumErrorCode;
+import com.wirelust.aa.data.model.ApiApplication;
+import com.wirelust.aa.data.model.RestrictedUsername;
+import com.wirelust.aa.util.StringUtils;
 import org.junit.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -77,9 +77,9 @@ public class ApiTest {
 		WebArchive testWar = ShrinkWrap.create(WebArchive.class, "test.war");
 		testWar.addPackages(true, "com.approachingpi");
 		testWar.addPackages(true,
-				Filters.exclude(".*com/wirelust/personalapi/client/.*"),
-				"com.wirelust.personalapi");
-		testWar.addPackage("test.com.wirelust.personalapi");
+				Filters.exclude(".*com/wirelust/aa/client/.*"),
+				"com.wirelust.aa");
+		testWar.addPackage("test.com.wirelust.aa");
 
 		testWar.addAsWebInfResource(new FileAsset(new File("src/main/webapp/WEB-INF/beans.xml")), "beans.xml");
 		testWar.addAsWebInfResource(new FileAsset(new File("src/main/webapp/WEB-INF/web.xml")), "web.xml");

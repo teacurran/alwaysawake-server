@@ -5,8 +5,8 @@ import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wirelust.personalapi.api.providers.JacksonConfigurationProvider;
-import com.wirelust.personalapi.api.v1.representations.AccountType;
+import com.wirelust.aa.api.providers.JacksonConfigurationProvider;
+import com.wirelust.aa.api.v1.representations.AccountType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

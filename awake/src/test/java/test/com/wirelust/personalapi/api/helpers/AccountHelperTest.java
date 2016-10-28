@@ -4,9 +4,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Date;
 
-import com.wirelust.personalapi.api.helpers.AccountHelper;
-import com.wirelust.personalapi.api.v1.representations.AccountType;
-import com.wirelust.personalapi.data.model.Account;
+import com.wirelust.aa.api.helpers.AccountHelper;
+import com.wirelust.aa.api.v1.representations.AccountType;
+import com.wirelust.aa.data.model.Account;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

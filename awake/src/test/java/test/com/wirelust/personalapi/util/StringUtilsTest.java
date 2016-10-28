@@ -3,8 +3,7 @@ package test.com.wirelust.personalapi.util;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import com.wirelust.personalapi.api.helpers.AccountHelper;
-import com.wirelust.personalapi.util.StringUtils;
+import com.wirelust.aa.util.StringUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

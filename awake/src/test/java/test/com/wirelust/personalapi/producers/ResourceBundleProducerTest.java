@@ -5,10 +5,10 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.inject.Inject;
 
-import com.wirelust.personalapi.locales.UTF8ResourceBundleControl;
-import com.wirelust.personalapi.producers.ResourceBundleProducer;
-import com.wirelust.personalapi.qualifiers.ClasspathResource;
-import com.wirelust.personalapi.qualifiers.Localization;
+import com.wirelust.aa.locales.UTF8ResourceBundleControl;
+import com.wirelust.aa.producers.ResourceBundleProducer;
+import com.wirelust.aa.qualifiers.ClasspathResource;
+import com.wirelust.aa.qualifiers.Localization;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
@@ -65,7 +65,7 @@ public class ResourceBundleProducerTest {
 	public void shouldBeAbleToLoadResourceBundleClass() throws Exception {
 		UTF8ResourceBundleControl utf8ResourceBundleControl = new UTF8ResourceBundleControl();
 		ResourceBundle loadedBUndle = utf8ResourceBundleControl
-			.newBundle("test.com.wirelust.personalapi.util.TestResourceBundle", Locale.US, "java.class",
+			.newBundle("test.com.wirelust.aa.util.TestResourceBundle", Locale.US, "java.class",
 				this.getClass().getClassLoader(), false);
 
 		Assert.assertEquals("value1", loadedBUndle.getString("test1"));
@@ -75,7 +75,7 @@ public class ResourceBundleProducerTest {
 	public void shouldThrowClassCastExceptionOnNonResourceBundle() throws Exception {
 		UTF8ResourceBundleControl utf8ResourceBundleControl = new UTF8ResourceBundleControl();
 
-		utf8ResourceBundleControl.newBundle("test.com.wirelust.personalapi.util.TestNonResourceBundle",
+		utf8ResourceBundleControl.newBundle("test.com.wirelust.aa.util.TestNonResourceBundle",
 			Locale.US, "java.class", this.getClass().getClassLoader(), false);
 	}
 
@@ -83,7 +83,7 @@ public class ResourceBundleProducerTest {
 	public void shouldThrowIllegalArguementException() throws Exception {
 		UTF8ResourceBundleControl utf8ResourceBundleControl = new UTF8ResourceBundleControl();
 
-		utf8ResourceBundleControl.newBundle("test.com.wirelust.personalapi.util.TestResourceBundle",
+		utf8ResourceBundleControl.newBundle("test.com.wirelust.aa.util.TestResourceBundle",
 			Locale.US, "invalid.format", this.getClass().getClassLoader(), false);
 	}
 

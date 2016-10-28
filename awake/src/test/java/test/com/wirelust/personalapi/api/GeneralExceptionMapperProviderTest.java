@@ -3,10 +3,10 @@ package test.com.wirelust.personalapi.api;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
-import com.wirelust.personalapi.api.providers.GeneralExceptionMapperProvider;
-import com.wirelust.personalapi.api.v1.representations.ApiErrorType;
-import com.wirelust.personalapi.api.v1.representations.EnumErrorCode;
-import com.wirelust.personalapi.producers.ResourceBundleProducer;
+import com.wirelust.aa.api.providers.GeneralExceptionMapperProvider;
+import com.wirelust.aa.api.v1.representations.ApiErrorType;
+import com.wirelust.aa.api.v1.representations.EnumErrorCode;
+import com.wirelust.aa.producers.ResourceBundleProducer;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;

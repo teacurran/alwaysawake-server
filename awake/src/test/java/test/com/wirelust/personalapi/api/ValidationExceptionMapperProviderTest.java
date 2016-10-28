@@ -6,12 +6,12 @@ import java.util.ResourceBundle;
 import javax.validation.ValidationException;
 import javax.ws.rs.core.Response;
 
-import com.wirelust.personalapi.api.providers.ValidationExceptionMapperProvider;
-import com.wirelust.personalapi.api.v1.representations.ApiErrorType;
-import com.wirelust.personalapi.api.v1.representations.EnumErrorCode;
-import com.wirelust.personalapi.api.v1.representations.ParameterErrorType;
-import com.wirelust.personalapi.api.v1.resources.AccountResource;
-import com.wirelust.personalapi.producers.ResourceBundleProducer;
+import com.wirelust.aa.api.providers.ValidationExceptionMapperProvider;
+import com.wirelust.aa.api.v1.representations.ApiErrorType;
+import com.wirelust.aa.api.v1.representations.EnumErrorCode;
+import com.wirelust.aa.api.v1.representations.ParameterErrorType;
+import com.wirelust.aa.api.v1.resources.AccountResource;
+import com.wirelust.aa.producers.ResourceBundleProducer;
 import org.jboss.resteasy.api.validation.ConstraintType;
 import org.jboss.resteasy.api.validation.ResteasyConstraintViolation;
 import org.jboss.resteasy.api.validation.ResteasyViolationException;

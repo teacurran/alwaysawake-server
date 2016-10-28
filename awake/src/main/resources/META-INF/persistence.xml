@@ -1,15 +1,15 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
 			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
                        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="personalapi" transaction-type="JTA">
-		<jta-data-source>personalapi-ds</jta-data-source>
+	<persistence-unit name="alwaysawake" transaction-type="JTA">
+		<jta-data-source>alwaysawake-ds</jta-data-source>
 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 
 		<properties>
 			<!-- use a custom plural naming strategy -->
-			<property name="hibernate.ejb.naming_strategy" value="com.wirelust.personalapi.data.jpa.PluralNamingStrategy"/>
+			<property name="hibernate.ejb.naming_strategy" value="com.wirelust.aa.data.jpa.PluralNamingStrategy"/>
 
 			<property name="hibernate.archive.autodetection" value="class, hbm"/>
 
@@ -24,7 +24,7 @@
 			<!--
 			<property name="hibernate.search.default.directory_provider" value="filesystem" />
 			<property name="hibernate.search.default.exclusive_index_use" value="false" />
-			<property name="hibernate.search.default.indexBase" value="/usr/local/share/personalapi/lucene" />
+			<property name="hibernate.search.default.indexBase" value="/usr/local/share/aa/lucene" />
 			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
 			<property name="hibernate.search.default.locking_strategy" value="single"/>
 			-->

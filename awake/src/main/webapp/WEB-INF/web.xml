@@ -26,7 +26,7 @@
 
 	<servlet>
 		<servlet-name>SwaggerBootstrap</servlet-name>
-		<servlet-class>com.wirelust.personalapi.web.servlet.SwaggerBootstrap</servlet-class>
+		<servlet-class>com.wirelust.aa.web.servlet.SwaggerBootstrap</servlet-class>
 		<init-param>
 			<!-- This make sure that all resources are scanned whether or not they use Swagger Annotations.
 			https://github.com/swagger-api/swagger-samples/tree/master/java/java-jaxrs-no-annotations -->
