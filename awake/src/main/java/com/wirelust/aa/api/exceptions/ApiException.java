@@ -5,7 +5,7 @@ import com.wirelust.aa.api.v1.representations.EnumErrorCode;
 /**
  * Date: 13-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 public class ApiException extends RuntimeException {
 

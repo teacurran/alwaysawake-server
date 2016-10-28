@@ -23,7 +23,7 @@ import com.wirelust.aa.util.StringUtils;
 /**
  * Date: 11-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @Entity
 @Cacheable

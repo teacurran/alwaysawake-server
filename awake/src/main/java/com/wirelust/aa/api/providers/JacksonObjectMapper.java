@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Date: 26-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 public class JacksonObjectMapper extends ObjectMapper {
 

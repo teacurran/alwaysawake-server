@@ -16,7 +16,7 @@ import com.wirelust.aa.api.v1.resources.SwaggerApiListingResource;
 /**
  * Date: 26-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @ApplicationPath("/api/v1")
 public class V1Application extends Application {

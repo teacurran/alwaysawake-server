@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 /**
  * Date: 09-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 public class EntityManagerProducer {
 

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 /**
  * Date: 28-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @XmlType(name = "", propOrder = {"code", "text", "detail", "parameterErrors"})
 @XmlRootElement(name = "error")

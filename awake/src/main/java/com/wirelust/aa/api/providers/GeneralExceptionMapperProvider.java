@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Date: 28-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @Provider
 public class GeneralExceptionMapperProvider

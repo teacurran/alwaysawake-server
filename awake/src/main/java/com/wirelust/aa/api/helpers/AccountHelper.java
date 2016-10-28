@@ -8,7 +8,7 @@ import com.wirelust.aa.data.model.Account;
 /**
  * Date: 14-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 public class AccountHelper {
 

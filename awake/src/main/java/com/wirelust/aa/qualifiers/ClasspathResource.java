@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Date: 09-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @Retention(RUNTIME)
 @Target({METHOD, TYPE, FIELD, PARAMETER})

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Date: 26-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @Provider
 @Consumes({MediaType.APPLICATION_JSON, "text/json"})

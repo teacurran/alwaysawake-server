@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * Date: 13-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  * <p/>
  * Java class for enum-error-code.
  * <p/>

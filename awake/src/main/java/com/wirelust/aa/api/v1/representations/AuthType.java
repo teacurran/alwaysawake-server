@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Date: 13-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @XmlRootElement(name="auth")
 @XmlAccessorType(XmlAccessType.FIELD)

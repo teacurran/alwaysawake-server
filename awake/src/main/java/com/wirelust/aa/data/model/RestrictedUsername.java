@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 /**
  * Date: 14-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @Entity
 @Access( AccessType.FIELD )

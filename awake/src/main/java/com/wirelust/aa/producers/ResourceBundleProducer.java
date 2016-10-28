@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Date: 09-03-2015
  *
- * @Author T. Curran
+ * @author T. Curran
  */
 @ApplicationScoped
 public class ResourceBundleProducer {
