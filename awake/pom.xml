@@ -229,9 +229,6 @@
 								<exclude>**/*.html</exclude>
 							</excludes>
 						</resource>
-						<resource>
-							<directory>${grunt.dist.dir}</directory>
-						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
