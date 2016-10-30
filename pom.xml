@@ -171,7 +171,6 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${version.jacoco}</version>
-				<inherited>false</inherited>
 				<executions>
 					<execution>
 						<goals>
