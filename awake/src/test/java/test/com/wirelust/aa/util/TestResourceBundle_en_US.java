@@ -1,4 +1,4 @@
-package test.com.wirelust.personalapi.util;
+package test.com.wirelust.aa.util;
 
 import java.util.Enumeration;
 import java.util.ResourceBundle;

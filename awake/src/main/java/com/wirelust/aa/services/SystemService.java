@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Properties;
-import javax.ejb.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @author T. Curran
  */
 @Named
-@Singleton
+@ApplicationScoped
 public class SystemService implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SystemService.class);
@@ -26,6 +26,10 @@ public class SystemService implements Serializable {
 	private Properties versionProperties;
 
 	private String hostName = null;
+
+	public SystemService() {
+		// no arg constructore required by CDI
+	}
 
 	@Inject
 	public SystemService(

@@ -1,4 +1,4 @@
-package test.com.wirelust.personalapi;
+package test.com.wirelust.aa;
 
 import java.io.File;
 import javax.inject.Inject;

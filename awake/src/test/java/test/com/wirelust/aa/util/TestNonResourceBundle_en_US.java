@@ -1,4 +1,4 @@
-package test.com.wirelust.personalapi.util;
+package test.com.wirelust.aa.util;
 
 /**
  * Date: 01-Jun-2016

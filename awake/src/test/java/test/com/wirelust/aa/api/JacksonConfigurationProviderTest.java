@@ -1,4 +1,4 @@
-package test.com.wirelust.personalapi.api;
+package test.com.wirelust.aa.api;
 
 import javax.ws.rs.core.MediaType;
 

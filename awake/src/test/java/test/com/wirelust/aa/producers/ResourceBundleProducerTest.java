@@ -1,4 +1,4 @@
-package test.com.wirelust.personalapi.producers;
+package test.com.wirelust.aa.producers;
 
 import java.util.Locale;
 import java.util.Properties;

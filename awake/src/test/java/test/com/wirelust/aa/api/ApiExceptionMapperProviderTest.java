@@ -1,9 +1,10 @@
-package test.com.wirelust.personalapi.api;
+package test.com.wirelust.aa.api;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
-import com.wirelust.aa.api.providers.GeneralExceptionMapperProvider;
+import com.wirelust.aa.api.exceptions.ApiException;
+import com.wirelust.aa.api.providers.ApiExceptionMapperProvider;
 import com.wirelust.aa.api.v1.representations.ApiErrorType;
 import com.wirelust.aa.api.v1.representations.EnumErrorCode;
 import com.wirelust.aa.producers.ResourceBundleProducer;
@@ -20,22 +21,22 @@ import org.junit.runner.RunWith;
  */
 @RunWith(CdiRunner.class)
 @AdditionalClasses(ResourceBundleProducer.class)
-public class GeneralExceptionMapperProviderTest {
+public class ApiExceptionMapperProviderTest {
 
 	@Inject
-	GeneralExceptionMapperProvider generalExceptionMapperProvider;
+	ApiExceptionMapperProvider apiExceptionMapperProvider;
 
 	@Test
 	public void shouldBeAbleToMapException() {
-		Exception exception = new Exception("test exception");
-		Response response = generalExceptionMapperProvider.toResponse(exception);
+		ApiException exception = new ApiException(EnumErrorCode.EMAIL_EXISTS);
+		Response response = apiExceptionMapperProvider.toResponse(exception);
 
-		Assert.assertEquals(EnumErrorCode.GENERIC_ERROR.responseStatus().getStatusCode(), response.getStatus());
+		Assert.assertEquals(EnumErrorCode.EMAIL_EXISTS.responseStatus().getStatusCode(), response.getStatus());
 
 		Assert.assertTrue(response.getEntity() instanceof ApiErrorType);
 		if (response.getEntity() instanceof ApiErrorType) {
 			ApiErrorType apiError = (ApiErrorType)response.getEntity();
-			Assert.assertEquals("Generic error",  apiError.getText());
+			Assert.assertEquals("The email address you entered already exists",  apiError.getText());
 		}
 	}
 

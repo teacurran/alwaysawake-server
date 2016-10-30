@@ -16,10 +16,8 @@ import javax.ws.rs.ext.Provider;
 import com.wirelust.aa.api.v1.representations.ApiErrorType;
 import com.wirelust.aa.api.v1.representations.EnumErrorCode;
 import com.wirelust.aa.api.v1.representations.ParameterErrorType;
-import com.wirelust.aa.locales.I18n;
 import com.wirelust.aa.qualifiers.Localization;
 import com.wirelust.aa.services.Configuration;
-import org.apache.deltaspike.jsf.api.message.JsfMessage;
 import org.jboss.resteasy.api.validation.ResteasyConstraintViolation;
 import org.jboss.resteasy.api.validation.ResteasyViolationException;
 import org.slf4j.Logger;
@@ -40,9 +38,6 @@ public class ValidationExceptionMapperProvider implements ExceptionMapper<Valida
 
 	@Inject
 	Configuration configuration;
-
-	@Inject
-	JsfMessage<I18n> messages;
 
 	@Inject
 	@Localization
