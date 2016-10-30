@@ -50,7 +50,7 @@ public class ApiTest {
 	private static final String ROOT_URL = "http://127.0.0.1:8080/test";
 
 	private static final String REG_INVITE_CODE = "1234";
-	private static final String REG_USER_1_USERNAME = "tea";`
+	private static final String REG_USER_1_USERNAME = "tea";
 	private static final String REG_USER_1_EMAIL = "spam+1@grilledcheese.com";
 	private static final String REG_USER_1_PASS = "Pas5w0rd!";
 

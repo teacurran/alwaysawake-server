@@ -35,17 +35,14 @@ public class Configuration implements Serializable {
 
 	private static final String ENV_FILE_NAME = "app.aa.env";
 
+	@Inject
+	@ClasspathResource("defaults.properties")
 	private Properties defaultProperties;
 
 	private Properties configuredProperties = new Properties();
 
 	private Boolean fitbitSync;
 	private String fitbitSchedule;
-
-	@Inject
-	public Configuration(@ClasspathResource("defaults.properties") Properties defaultProperties) {
-		this.defaultProperties = defaultProperties;
-	}
 
 	@PostConstruct
 	public void init() {
