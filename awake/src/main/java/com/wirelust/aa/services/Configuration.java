@@ -29,11 +29,13 @@ import org.slf4j.LoggerFactory;
 @ApplicationScoped
 public class Configuration implements Serializable {
 
+	public static final String ENV_FILE_NAME = "app.aa.env";
+
 	private static final long serialVersionUID = -3221266624481566406L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 
-	private static final String ENV_FILE_NAME = "app.aa.env";
+	boolean loaded = false;
 
 	@Inject
 	@ClasspathResource("defaults.properties")
@@ -41,42 +43,19 @@ public class Configuration implements Serializable {
 
 	private Properties configuredProperties = new Properties();
 
-	private Boolean fitbitSync;
-	private String fitbitSchedule;
-
 	@PostConstruct
 	public void init() {
-		// load default properties
-		bindProperties(defaultProperties, "default");
-
 		String configFileName = System.getProperty(ENV_FILE_NAME);
-		LOGGER.info("{}={}", ENV_FILE_NAME, configFileName);
+		LOGGER.info("configuration {}={}", ENV_FILE_NAME, configFileName);
 
 		if (configFileName == null) {
-			LOGGER.warn("{} was not specified. using defaults only");
+			LOGGER.error("{} was not specified. using defaults only", ENV_FILE_NAME);
 			return;
 		}
 
-		InputStream configInputStream = null;
 		File propertyFile = new File(configFileName);
 
-		// Attempt to load the config from a file
-		if (propertyFile.exists() && propertyFile.canRead()) {
-			try {
-				configInputStream = new FileInputStream(propertyFile);
-			} catch (FileNotFoundException e) {
-				// impossible to get here
-				LOGGER.error("config file not found", e);
-			}
-		} else {
-			configInputStream = this.getClass().getResourceAsStream("/environments/" + configFileName);
-		}
-
-		if (configInputStream == null) {
-			throw new ServiceException("Error initializing config, unable to load property file:" + configFileName);
-		}
-
-		loadFromInputStreamAndClose(configInputStream);
+		loadPropertyFile(propertyFile);
 
 		LOGGER.info("env properties loaded:{}", configuredProperties.toString());
 	}
@@ -87,7 +66,7 @@ public class Configuration implements Serializable {
 			return this.configuredProperties.getProperty(key);
 		}
 
-		if (this.defaultProperties.containsKey(key)) {
+		if (defaultProperties != null && defaultProperties.containsKey(key)) {
 			return this.defaultProperties.getProperty(key);
 		}
 		return null;
@@ -134,64 +113,30 @@ public class Configuration implements Serializable {
 	public boolean getSettingBool(final String key, final boolean defaultValue) {
 
 		String resultString = getSetting(key);
-		boolean resultBool;
-		try {
-			resultBool = Boolean.parseBoolean(resultString);
-		} catch (NumberFormatException e) {
-			resultBool = defaultValue;
+
+		if ("1".equalsIgnoreCase(resultString) || "yes".equalsIgnoreCase(resultString) || "true".equalsIgnoreCase
+			(resultString) || "on".equalsIgnoreCase(resultString)) {
+			return true;
+		} else if ("0".equalsIgnoreCase(resultString) || "no".equalsIgnoreCase(resultString) || "false"
+			.equalsIgnoreCase(resultString) || "off".equalsIgnoreCase(resultString)) {
+			return false;
 		}
-		return resultBool;
+		return defaultValue;
 	}
 
-	public String getFitbitSchedule() {
-		return fitbitSchedule;
+	public boolean isLoaded() {
+		return loaded;
 	}
 
-	public void setFitbitSchedule(String fitbitSchedule) {
-		this.fitbitSchedule = fitbitSchedule;
-	}
-
-	public Boolean getFitbitSync() {
-		return fitbitSync;
-	}
-
-	public Boolean isFitbitSync() {
-		return fitbitSync;
-	}
-
-	public void setFitbitSync(Boolean fitbitSync) {
-		this.fitbitSync = fitbitSync;
-	}
-
-	/**
-	 * Loads the properties file into the bean properties of this class.
-	 * @param properties
-	 * @param name used for logging only, if a property can't load you will know what file it was from
-	 */
-	private void bindProperties(Properties properties, String name) {
-		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
-			try {
-				BeanUtils.setProperty(this, (String) entry.getKey(), entry.getValue());
-			} catch (Exception e) {
-				LOGGER.warn("unable to load {} property:{}", name, entry.getKey(), e);
-			}
-		}
-	}
-
-	private void loadFromInputStreamAndClose(InputStream inputStream) {
-		try {
+	private void loadPropertyFile(File propertyFile) {
+		try (InputStream inputStream = new FileInputStream(propertyFile)) {
 			configuredProperties.load(inputStream);
-			bindProperties(configuredProperties, "configured");
+			loaded = true;
 		} catch (IOException e) {
 			throw new ServiceException(e);
-		} finally {
-			try {
-				inputStream.close();
-			} catch (IOException ioe) {
-				// nothing we can really do here
-				LOGGER.error("error closing input stream", ioe);
-			}
 		}
 	}
 
 }
+
+
