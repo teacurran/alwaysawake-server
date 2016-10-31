@@ -43,12 +43,14 @@ public class MailService implements Serializable {
 			final String toEmail,
 			final String subject) {
 
+		throw new UnsupportedOperationException("not implemented yet");
 	}
 
 	public void sendEmail(
 			final String to,
 			final String subject) {
 
+		throw new UnsupportedOperationException("not implemented yet");
 	}
 
 

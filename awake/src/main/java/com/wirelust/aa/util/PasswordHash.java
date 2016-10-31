@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
+import com.wirelust.aa.exceptions.ServiceException;
 import org.apache.commons.codec.binary.Base64;
 
 public class PasswordHash {
@@ -52,11 +53,14 @@ public class PasswordHash {
 	public static boolean check(
 			final String inPassword,
 			final String inSalt,
-			final String inHash) throws NoSuchAlgorithmException, InvalidKeySpecException {
+			final String inHash) {
 
-		String hashOfInput = hash(inPassword, Base64.decodeBase64(inSalt));
-
-		return hashOfInput.equals(inHash);
+		try {
+			String hashOfInput = hash(inPassword, Base64.decodeBase64(inSalt));
+			return hashOfInput.equals(inHash);
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			throw new ServiceException("unable to check password", e);
+		}
 	}
 
 	// using PBKDF2 from Sun, an alternative is https://github.com/wg/scrypt

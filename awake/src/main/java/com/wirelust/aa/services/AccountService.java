@@ -82,11 +82,7 @@ public class AccountService implements Serializable {
 			return false;
 		}
 
-		try {
-			return PasswordHash.check(inPassword, inAccount.getPasswordSalt(), inAccount.getPassword());
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			throw new ServiceException(e);
-		}
+		return PasswordHash.check(inPassword, inAccount.getPasswordSalt(), inAccount.getPassword());
 	}
 
 }

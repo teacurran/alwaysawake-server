@@ -7,7 +7,6 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import com.wirelust.aa.qualifiers.ClasspathResource;
 import org.slf4j.Logger;
