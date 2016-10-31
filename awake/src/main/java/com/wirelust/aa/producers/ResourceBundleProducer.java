@@ -33,7 +33,7 @@ public class ResourceBundleProducer {
 	public ResourceBundle getLocalization() {
 		Locale locale = Locale.US;
 
-		return ResourceBundle.getBundle("locales.I18n", locale,
+		return ResourceBundle.getBundle("com.wirelust.aa.locales.I18n", locale,
 				new UTF8ResourceBundleControl());
 	}
 

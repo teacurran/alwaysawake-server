@@ -56,8 +56,8 @@ public class ResourceBundleProducerTest {
 	@Test
 	public void shouldBeAbleToloadLocaleWithReload() throws Exception {
 		UTF8ResourceBundleControl utf8ResourceBundleControl = new UTF8ResourceBundleControl();
-		ResourceBundle loadedLocale = utf8ResourceBundleControl.newBundle("locales.I18n", Locale.US, "java.properties",
-			this.getClass().getClassLoader(), true);
+		ResourceBundle loadedLocale = utf8ResourceBundleControl.newBundle("com.wirelust.aa.locales.I18n",
+			Locale.US, "java.properties", this.getClass().getClassLoader(), true);
 		Assert.assertEquals(APPLICATION_NAME, loadedLocale.getString("application.name"));
 	}
 
