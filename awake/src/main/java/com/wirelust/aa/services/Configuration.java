@@ -2,11 +2,9 @@ package com.wirelust.aa.services;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.Map;
 import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -16,7 +14,6 @@ import javax.inject.Named;
 import com.wirelust.aa.exceptions.ServiceException;
 import com.wirelust.aa.qualifiers.ClasspathResource;
 import com.wirelust.aa.util.StringUtils;
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

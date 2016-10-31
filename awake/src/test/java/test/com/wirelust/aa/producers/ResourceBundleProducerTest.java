@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 @AdditionalClasses(ResourceBundleProducer.class)
 public class ResourceBundleProducerTest {
 
-	private static final String APPLICATION_NAME = "Personal API";
+	private static final String APPLICATION_NAME = "Always Awake Server";
 
 	@Inject
 	@ClasspathResource("defaults.properties")

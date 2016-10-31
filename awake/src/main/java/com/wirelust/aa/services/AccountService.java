@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.EntityManager;
 
-import com.wirelust.aa.data.repositories.AccountPasswordResetRepository;
-import com.wirelust.aa.util.PasswordHash;
 import com.wirelust.aa.data.model.Account;
 import com.wirelust.aa.data.model.AccountPasswordReset;
+import com.wirelust.aa.data.repositories.AccountPasswordResetRepository;
 import com.wirelust.aa.exceptions.ServiceException;
+import com.wirelust.aa.util.PasswordHash;
 import com.wirelust.aa.util.StringUtils;
 
 /**

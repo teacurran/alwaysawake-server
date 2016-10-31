@@ -10,6 +10,7 @@ import com.wirelust.aa.api.providers.GeneralExceptionMapperProvider;
 import com.wirelust.aa.api.providers.JacksonConfigurationProvider;
 import com.wirelust.aa.api.providers.ValidationExceptionMapperProvider;
 import com.wirelust.aa.api.v1.resources.AccountResource;
+import com.wirelust.aa.api.v1.resources.StatusResource;
 import com.wirelust.aa.api.v1.resources.SwaggerApiListingResource;
 
 
@@ -25,6 +26,7 @@ public class V1Application extends Application {
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> classes = new HashSet<>();
 
+		classes.add(StatusResource.class);
 		classes.add(AccountResource.class);
 
 		classes.add(JacksonConfigurationProvider.class);
