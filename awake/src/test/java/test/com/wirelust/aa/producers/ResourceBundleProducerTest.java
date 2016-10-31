@@ -61,18 +61,8 @@ public class ResourceBundleProducerTest {
 		Assert.assertEquals(APPLICATION_NAME, loadedLocale.getString("application.name"));
 	}
 
-	@Test
-	public void shouldBeAbleToLoadResourceBundleClass() throws Exception {
-		UTF8ResourceBundleControl utf8ResourceBundleControl = new UTF8ResourceBundleControl();
-		ResourceBundle loadedBUndle = utf8ResourceBundleControl
-			.newBundle("test.com.wirelust.aa.util.TestResourceBundle", Locale.US, "java.class",
-				this.getClass().getClassLoader(), false);
-
-		Assert.assertEquals("value1", loadedBUndle.getString("test1"));
-	}
-
-	@Test(expected = ClassCastException.class)
-	public void shouldThrowClassCastExceptionOnNonResourceBundle() throws Exception {
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldThrowClassIllegalArgumentExceptionOnJavaClassFormat() throws Exception {
 		UTF8ResourceBundleControl utf8ResourceBundleControl = new UTF8ResourceBundleControl();
 
 		utf8ResourceBundleControl.newBundle("test.com.wirelust.aa.util.TestNonResourceBundle",
@@ -80,7 +70,7 @@ public class ResourceBundleProducerTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void shouldThrowIllegalArguementException() throws Exception {
+	public void shouldThrowIllegalArguementExceptionOnInvalidFormat() throws Exception {
 		UTF8ResourceBundleControl utf8ResourceBundleControl = new UTF8ResourceBundleControl();
 
 		utf8ResourceBundleControl.newBundle("test.com.wirelust.aa.util.TestResourceBundle",

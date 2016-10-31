@@ -24,60 +24,31 @@ import org.slf4j.LoggerFactory;
  */
 public class UTF8ResourceBundleControl extends ResourceBundle.Control {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UTF8ResourceBundleControl.class);
-
 	public UTF8ResourceBundleControl() {
 		// default constructor because ResourceBundle.Control constructor is protected
 	}
 
 	@Override
 	public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-			throws IllegalAccessException, InstantiationException, IOException {
+		throws IllegalAccessException, InstantiationException, IOException {
 		String bundleName = toBundleName(baseName, locale);
+		ResourceBundle bundle = null;
+		if ("java.properties".equals(format)) {
+			try (InputStream stream = AccessController.doPrivileged(
+				new PrivilegedInputStreamAccessAction(reload, toResourceName(bundleName, "properties"), loader)
+				)) {
 
-		LOGGER.info("Loading resource bundle:{} format:{}", bundleName, format);
-
-		ResourceBundle bundle;
-		switch (format) {
-			case "java.class":
-				try {
-
-					Class<?> bundleClass = loader.loadClass(bundleName);
-
-					// If the class isn't a ResourceBundle subclass, throw a ClassCastException.
-					if (ResourceBundle.class.isAssignableFrom(bundleClass)) {
-
-						Class<? extends ResourceBundle> resourceBundleClass =
-							(Class<? extends ResourceBundle>)bundleClass;
-
-						bundle = resourceBundleClass.newInstance();
-					} else {
-						throw new ClassCastException(bundleClass.getName() + " cannot be cast to ResourceBundle");
-					}
-				} catch (ClassNotFoundException e) {
-					LOGGER.debug("resource does not exist:{}", bundleName, e);
-					return null;
+				// Only this line is changed to make it to read properties files as UTF-8.
+				bundle = new PropertyResourceBundle(new InputStreamReader(stream, "UTF-8"));
+			} catch (PrivilegedActionException e) {
+				Exception unwrappedException = e.getException();
+				if (unwrappedException instanceof IOException) {
+					throw (IOException) unwrappedException;
 				}
-				break;
-			case "java.properties":
-				try (InputStream stream  = AccessController.doPrivileged(
-							new PrivilegedInputStreamAccessAction(
-									reload,
-									toResourceName(bundleName, "properties"),
-									loader))) {
-
-					bundle = new PropertyResourceBundle(new InputStreamReader(stream, "UTF-8"));
-
-				} catch (PrivilegedActionException e) {
-					Exception unwrappedException = e.getException();
-					if (unwrappedException instanceof IOException) {
-						throw (IOException) unwrappedException;
-					}
-					throw new IOException(e);
-				}
-				break;
-			default:
-				throw new IllegalArgumentException("unknown format: " + format);
+				throw new IOException(e);
+			}
+		} else {
+			throw new IllegalArgumentException("unsupported format: " + format);
 		}
 		return bundle;
 	}
@@ -90,7 +61,7 @@ public class UTF8ResourceBundleControl extends ResourceBundle.Control {
 
 		final boolean reloadFlag;
 
-		public PrivilegedInputStreamAccessAction(final boolean reloadFlag,
+		private PrivilegedInputStreamAccessAction(final boolean reloadFlag,
 												 final String resourceName,
 												 final ClassLoader classLoader) {
 			this.reloadFlag = reloadFlag;

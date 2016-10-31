@@ -104,8 +104,7 @@ public class ApiTest {
 		// change the persistence to the test persistence
 		//testWar.addAsResource("persistence-test.xml", "META-INF/persistence.xml");
 
-		System.out.println("test.war:" + testWar.toString(true));
-		LOGGER.debug("test deployment: {}", testWar.toString(true));
+		LOGGER.info("test deployment: \n{}", testWar.toString(true).replaceAll("\\n", "\n\t"));
 
 		return testWar;
 	}
