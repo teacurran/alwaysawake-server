@@ -1,5 +1,6 @@
 package com.wirelust.aa.data.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -21,20 +22,20 @@ import javax.persistence.TemporalType;
 @Entity
 @Access( AccessType.FIELD )
 @Cacheable
-public class AccountSetting {
+public class AccountSetting implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+	private Long id;
 
 	@ManyToOne
-	protected Account account;
+	private Account account;
 
 	@Basic
-	protected String key;
+	private String key;
 
 	@Basic
-	protected String value;
+	private String value;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateSet;

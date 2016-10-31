@@ -15,8 +15,11 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.wirelust.aa.util.StringUtils;
 
@@ -28,20 +31,6 @@ import com.wirelust.aa.util.StringUtils;
 @Entity
 @Cacheable
 @NamedQueries({
-		@NamedQuery(name = Account.QUERY_ALL,
-				query = "SELECT A " +
-						"FROM Account A"),
-
-		@NamedQuery(name = Account.QUERY_BY_ID,
-				query = "SELECT A " +
-						"FROM Account A " +
-						"WHERE A.id = :id"),
-
-		@NamedQuery(name = Account.QUERY_BY_USERNAME,
-				query = "SELECT A " +
-						"FROM Account A " +
-						"WHERE A.username = :username"),
-
 		@NamedQuery(name = Account.QUERY_BY_USERNAME_NORMALIZED,
 				query = "SELECT A " +
 						"FROM Account A " +
@@ -61,107 +50,167 @@ import com.wirelust.aa.util.StringUtils;
 )
 public class Account implements java.io.Serializable {
 
-	public static final String QUERY_ALL					= "account.getAll";
-	public static final String QUERY_BY_ID					= "account.byId";
 	public static final String QUERY_BY_EMAIL				= "account.byEmail";
-	public static final String QUERY_BY_USERNAME			= "account.byUsername";
 	public static final String QUERY_BY_USERNAME_NORMALIZED	= "account.byUsernameNormalized";
 	public static final String QUERY_BY_USERNAME_NORMALIZED_OR_EMAIL	= "account.byUsernameNormalizedOrEmail";
 
-	public static final String DISABLED_REASON_GENERIC			= "generic";
-	public static final String DISABLED_REASON_EXCESS_PW_FAIL	= "passfail";
+	public enum DisabledReason {
+		GENERIC(1),
+		EXCESS_PW_FAIL(2),
+		TOS_VIOLATION(3);
+
+		private int value;
+
+		DisabledReason(final int value) {
+			this.value = value;
+		}
+
+		public static DisabledReason fromValue(final int value) {
+			for (DisabledReason item : DisabledReason.values()) {
+				if (item.getValue() == value) {
+					return item;
+				}
+			}
+			return null;
+		}
+
+		public int getValue() {
+			return value;
+		}
+	}
+
+	public enum Status {
+		WAITING(0),
+		INVITED(1),
+		EMAIL_VERIFY(2),
+		ACTIVE(3),
+		DISABLED(4);
+
+		private int value;
+
+		Status(final int value) {
+			this.value = value;
+		}
+
+		public static Status fromValue(final int value) {
+			for (Status item : Status.values()) {
+				if (item.getValue() == value) {
+					return item;
+				}
+			}
+			return null;
+		}
+
+		public int getValue() {
+			return value;
+		}
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+	private	 Long id;
 
 	@Column(unique = true)
-	protected String username;
+	private String username;
 
 	@Column(unique = true)
-	protected String usernameNormalized;
+	private String usernameNormalized;
 
 	@Column(length=200)
-	protected String fullName;
+	private String fullName;
 
 	@Basic
-	protected String location;
+	private String location;
 
 	@Lob
-	protected String bio;
+	private String bio;
 
 	@Basic
-	protected String email;
+	private String email;
 
 	@Basic
-	protected String password;
+	private String password;
 
 	@Basic
-	protected String passwordSalt;
+	private String passwordSalt;
 
 	@Basic
-	protected String background;
+	private String background;
 
 	@Basic
-	protected String avatar;
+	private String avatar;
 
 	@Basic
-	protected Integer timezone;
+	private Integer timezone;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date dateCreated;
+	private Date dateCreated;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date dateModified;
+	private Date dateModified;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date dateLogin;
+	private Date dateLogin;
 
 	@Basic
 	private Integer loginFailureCount = 0;
 
 	@Basic
-	protected boolean disabled;
+	private int statusId;
 
 	@Basic
-	protected boolean admin;
+	private boolean disabled;
 
 	@Basic
-	protected String website;
+	private boolean admin;
 
 	@Basic
-	protected Integer followingCount;
+	private String website;
 
 	@Basic
-	protected Integer followersCount;
+	private Integer followingCount;
 
 	@Basic
-	protected Integer publicVideoCount;
+	private Integer followersCount;
 
 	@Basic
-	protected Integer totalVideoCount;
+	private Integer disabledReasonId;
 
-	@Basic
-	protected String disabledReason;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+	private List<AccountSetting> settings = new ArrayList<>();
 
-	protected ArrayList<LinkedService> linkedServices = new ArrayList<>(0);
+	@Transient
+	private Status status;
 
-	protected ArrayList<AccountSetting> settings = new ArrayList<>(0);
+	@Transient
+	private DisabledReason disabledReason;
 
 	public Account() {
 		dateCreated = new Date();
 		dateModified = new Date();
 	}
 
-	public LinkedService getLinkedService(final String inService) {
-		if (linkedServices != null && linkedServices.isEmpty()) {
-			for (LinkedService ls : linkedServices) {
-				if (inService.equals(ls.getType())) {
-					return ls;
-				}
-			}
+	@PrePersist
+	private void prePersist() {
+		dateModified = new Date();
+
+		if (status == null) {
+			statusId = Status.WAITING.getValue();
+		} else {
+			statusId = status.getValue();
 		}
-		return null;
+
+		if (disabledReason == null) {
+			disabledReasonId = null;
+		} else {
+			disabledReasonId = disabledReason.getValue();
+		}
+	}
+
+	@PostLoad
+	void postLoad() {
+		status = Status.fromValue(statusId);
+		disabledReason = DisabledReason.fromValue(disabledReasonId);
 	}
 
 	public void setUsername(String username) {
@@ -277,15 +326,6 @@ public class Account implements java.io.Serializable {
 		this.disabled = disabled;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
-	public List<LinkedService> getLinkedServices() {
-		return linkedServices;
-	}
-
-	public void setLinkedServices(List<LinkedService> linkedServices) {
-		this.linkedServices = new ArrayList<>(linkedServices);
-	}
-
 	public String getPasswordSalt() {
 		return passwordSalt;
 	}
@@ -294,7 +334,6 @@ public class Account implements java.io.Serializable {
 		this.passwordSalt = passwordSalt;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
 	public List<AccountSetting> getSettings() {
 		return settings;
 	}
@@ -311,11 +350,11 @@ public class Account implements java.io.Serializable {
 		this.usernameNormalized = usernameNormalized;
 	}
 
-	public String getDisabledReason() {
+	public DisabledReason getDisabledReason() {
 		return disabledReason;
 	}
 
-	public void setDisabledReason(String disabledReason) {
+	public void setDisabledReason(DisabledReason disabledReason) {
 		this.disabledReason = disabledReason;
 	}
 
@@ -365,22 +404,27 @@ public class Account implements java.io.Serializable {
 		this.followersCount = followersCount;
 	}
 
-	public Integer getPublicVideoCount() {
-		return publicVideoCount;
+	public int getStatusId() {
+		return statusId;
 	}
 
-	public void setPublicVideoCount(Integer publicVideoCount) {
-		this.publicVideoCount = publicVideoCount;
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
 	}
 
-	public Integer getTotalVideoCount() {
-		if (totalVideoCount == null) {
-			totalVideoCount = 0;
-		}
-		return totalVideoCount;
+	public Integer getDisabledReasonId() {
+		return disabledReasonId;
 	}
 
-	public void setTotalVideoCount(Integer totalVideoCount) {
-		this.totalVideoCount = totalVideoCount;
+	public void setDisabledReasonId(Integer disabledReasonId) {
+		this.disabledReasonId = disabledReasonId;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }
