@@ -100,7 +100,7 @@ public class AccountResource {
 			final String inEmail,
 
 			@NotNull
-			@Size(min = 5, max = 20)
+			@Size(min = 5, max = 200)
 			@Pattern(regexp = AAConstants.ACCOUNT_AUTH_PATTERN)
 			@FormParam("password")
 			final String inPassword,

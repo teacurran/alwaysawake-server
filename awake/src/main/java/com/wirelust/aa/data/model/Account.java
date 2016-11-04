@@ -128,7 +128,7 @@ public class Account implements java.io.Serializable {
 	@Basic
 	private String email;
 
-	@Basic
+	@Column(length = 200)
 	private String password;
 
 	@Basic
@@ -176,6 +176,9 @@ public class Account implements java.io.Serializable {
 	@Basic
 	private Integer disabledReasonId;
 
+	@Basic
+	private int invites;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
 	private List<AccountSetting> settings = new ArrayList<>();
 
@@ -191,7 +194,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	@PrePersist
-	private void prePersist() {
+	public void prePersist() {
 		dateModified = new Date();
 
 		if (status == null) {
@@ -208,7 +211,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	@PostLoad
-	void postLoad() {
+	public void postLoad() {
 		status = Status.fromValue(statusId);
 		disabledReason = DisabledReason.fromValue(disabledReasonId);
 	}
@@ -426,5 +429,13 @@ public class Account implements java.io.Serializable {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public int getInvites() {
+		return invites;
+	}
+
+	public void setInvites(int invites) {
+		this.invites = invites;
 	}
 }

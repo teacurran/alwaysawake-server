@@ -42,6 +42,10 @@ public class LoginAudit implements Serializable {
 	@Basic
 	private String ipAddress;
 
+	public LoginAudit() {
+		// default constructor required for some JPA implementations
+	}
+
 	public LoginAudit(
 		final Account account,
 		final Boolean isSuccessful ) {
