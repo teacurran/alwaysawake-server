@@ -47,8 +47,6 @@ public class AccountHelper {
 			at.setWebsite(account.getWebsite());
 			at.setFollowersCount(account.getFollowersCount());
 			at.setFollowingCount(account.getFollowingCount());
-			at.setPublicVideoCount(account.getPublicVideoCount());
-			at.setTotalVideoCount(account.getTotalVideoCount());
 		}
 
 		return at;

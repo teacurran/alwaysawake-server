@@ -213,7 +213,11 @@ public class Account implements java.io.Serializable {
 	@PostLoad
 	public void postLoad() {
 		status = Status.fromValue(statusId);
-		disabledReason = DisabledReason.fromValue(disabledReasonId);
+		if (disabledReasonId == null) {
+			disabledReason = null;
+		} else {
+			disabledReason = DisabledReason.fromValue(disabledReasonId);
+		}
 	}
 
 	public void setUsername(String username) {
