@@ -21,7 +21,8 @@
 		<property name="defaultDataSource">java:jboss/datasources/personalapi-ds</property>
 	</extension>
 
+	<!-- extension not used while using embedded container -->
 	<extension qualifier="jacoco">
-		<property name="excludes">*</property>
+		<property name="includes">com.wirelust.aa.*</property>
 	</extension>
 </arquillian>
