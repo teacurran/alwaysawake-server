@@ -1,4 +1,4 @@
-package test.com.wirelust.aa.services;
+package com.wirelust.aa.services;
 
 import java.net.URL;
 

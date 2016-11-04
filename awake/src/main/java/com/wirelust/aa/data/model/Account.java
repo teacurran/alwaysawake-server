@@ -197,27 +197,14 @@ public class Account implements java.io.Serializable {
 	public void prePersist() {
 		dateModified = new Date();
 
-		if (status == null) {
-			statusId = Status.WAITING.getValue();
-		} else {
-			statusId = status.getValue();
-		}
-
-		if (disabledReason == null) {
-			disabledReasonId = null;
-		} else {
-			disabledReasonId = disabledReason.getValue();
-		}
+		populateStatusId();
+		populateDisabledReasonId();
 	}
 
 	@PostLoad
 	public void postLoad() {
-		status = Status.fromValue(statusId);
-		if (disabledReasonId == null) {
-			disabledReason = null;
-		} else {
-			disabledReason = DisabledReason.fromValue(disabledReasonId);
-		}
+		populateStatus();
+		populateDisabledReason();
 	}
 
 	public void setUsername(String username) {
@@ -411,22 +398,6 @@ public class Account implements java.io.Serializable {
 		this.followersCount = followersCount;
 	}
 
-	public int getStatusId() {
-		return statusId;
-	}
-
-	public void setStatusId(int statusId) {
-		this.statusId = statusId;
-	}
-
-	public Integer getDisabledReasonId() {
-		return disabledReasonId;
-	}
-
-	public void setDisabledReasonId(Integer disabledReasonId) {
-		this.disabledReasonId = disabledReasonId;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
@@ -441,5 +412,50 @@ public class Account implements java.io.Serializable {
 
 	public void setInvites(int invites) {
 		this.invites = invites;
+	}
+
+	/* enum ids are protected for testing. they should not be used in code */
+	protected int getStatusId() {
+		return statusId;
+	}
+
+	protected void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+
+	protected Integer getDisabledReasonId() {
+		return disabledReasonId;
+	}
+
+	protected void setDisabledReasonId(Integer disabledReasonId) {
+		this.disabledReasonId = disabledReasonId;
+	}
+
+	private void populateStatusId() {
+		if (status == null) {
+			statusId = Status.WAITING.getValue();
+		} else {
+			statusId = status.getValue();
+		}
+	}
+
+	private void populateStatus() {
+		status = Status.fromValue(statusId);
+	}
+
+	private void populateDisabledReason() {
+		if (disabledReasonId == null) {
+			disabledReason = null;
+		} else {
+			disabledReason = DisabledReason.fromValue(disabledReasonId);
+		}
+	}
+
+	private void populateDisabledReasonId() {
+		if (disabledReason == null) {
+			disabledReasonId = null;
+		} else {
+			disabledReasonId = disabledReason.getValue();
+		}
 	}
 }

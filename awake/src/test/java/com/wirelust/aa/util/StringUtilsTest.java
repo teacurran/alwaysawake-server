@@ -1,4 +1,4 @@
-package test.com.wirelust.aa.util;
+package com.wirelust.aa.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;

@@ -1,4 +1,4 @@
-package test.com.wirelust.aa;
+package com.wirelust.aa;
 
 import java.io.File;
 import javax.inject.Inject;

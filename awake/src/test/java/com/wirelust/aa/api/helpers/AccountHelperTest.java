@@ -1,4 +1,4 @@
-package test.com.wirelust.aa.api.helpers;
+package com.wirelust.aa.api.helpers;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;

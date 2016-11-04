@@ -1,4 +1,4 @@
-package test.com.wirelust.aa.api;
+package com.wirelust.aa.api;
 
 import java.util.ArrayList;
 import java.util.List;
