@@ -1,6 +1,7 @@
 package com.wirelust.aa.data.model;
 
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,9 @@ public class Invite {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private	 Long id;
+
+	@Basic
+	private String value;
 
 	@ManyToOne
 	private Account fromAccount;
@@ -72,5 +76,13 @@ public class Invite {
 
 	public void setDateClaimed(Date dateClaimed) {
 		this.dateClaimed = dateClaimed;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 }

@@ -1,5 +1,7 @@
 package com.wirelust.aa.api.v1.resources;
 
+import java.util.Date;
+
 import com.wirelust.aa.api.exceptions.ApiException;
 import com.wirelust.aa.api.v1.representations.AccountType;
 import com.wirelust.aa.api.v1.representations.AuthType;
@@ -7,8 +9,10 @@ import com.wirelust.aa.api.v1.representations.EnumErrorCode;
 import com.wirelust.aa.data.model.Account;
 import com.wirelust.aa.data.model.ApiApplication;
 import com.wirelust.aa.data.model.Authorization;
+import com.wirelust.aa.data.model.Invite;
 import com.wirelust.aa.data.repositories.AccountRepository;
 import com.wirelust.aa.data.repositories.ApiApplicationRepository;
+import com.wirelust.aa.data.repositories.InviteRepository;
 import com.wirelust.aa.data.repositories.RestrictedUsernameRepository;
 import com.wirelust.aa.api.helpers.AccountHelper;
 import com.wirelust.aa.services.AccountService;
@@ -67,6 +71,9 @@ public class AccountResource {
 
 	@Inject
 	RestrictedUsernameRepository restrictedUsernameRepository;
+
+	@Inject
+	InviteRepository inviteRepository;
 
 	/**
 	 * [ restricted, working ]
@@ -165,6 +172,43 @@ public class AccountResource {
 
 		return authType;
 	}
+
+	@Path("/claimInvite")
+	@POST
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public void claimInvite(
+			@NotNull
+			@FormParam("oauth_token")
+			String inOauthToken,
+
+			@FormParam("inviteCode")
+			final String inInviteCode
+			) {
+
+		Authorization auth =  authorizationRepository.findAnyByToken(inOauthToken);
+		if (auth == null) {
+			throw new ApiException(EnumErrorCode.SESSION_INVALID);
+		}
+
+		Account account = auth.getAccount();
+		if (account == null) {
+			// this should never happen
+			throw new ApiException(EnumErrorCode.SESSION_INVALID);
+		}
+
+		Invite invite = inviteRepository.findAnyByValue(inInviteCode);
+		if (invite.getDateClaimed() == null) {
+			account.setStatus(Account.Status.ACTIVE);
+			accountRepository.save(account);
+
+			invite.setDateClaimed(new Date());
+			invite.setUsedByAccount(account);
+			inviteRepository.save(invite);
+		}
+
+		authorizationRepository.attachAndRemove(auth);
+	}
+
 
 	/**
 	 * [ working ] Checks to see if a username currently exists or not.
