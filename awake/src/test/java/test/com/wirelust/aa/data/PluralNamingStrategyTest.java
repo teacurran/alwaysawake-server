@@ -1,4 +1,4 @@
-package com.wirelust.aa.data;
+package test.com.wirelust.aa.data;
 
 import com.wirelust.aa.data.jpa.PluralNamingStrategy;
 import org.junit.Assert;

@@ -1,7 +1,11 @@
-package com.wirelust.aa.data.model;
+package test.com.wirelust.aa.data.model;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.time.ZoneId;
 
+import com.wirelust.aa.data.model.Account;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -165,4 +169,5 @@ public class AccountTest {
 		account.postLoad();
 		assertEquals(ZoneId.of("America/Los_Angeles"), account.getTimezone());
 	}
+
 }

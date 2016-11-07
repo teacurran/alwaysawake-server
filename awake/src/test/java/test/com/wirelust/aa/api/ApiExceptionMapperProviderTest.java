@@ -1,4 +1,4 @@
-package com.wirelust.aa.api;
+package test.com.wirelust.aa.api;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;

@@ -1,4 +1,4 @@
-package com.wirelust.aa.services;
+package test.com.wirelust.aa.services;
 
 import java.io.File;
 import java.io.FileInputStream;

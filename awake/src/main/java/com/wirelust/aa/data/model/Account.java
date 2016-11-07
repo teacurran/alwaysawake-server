@@ -290,6 +290,10 @@ public class Account implements java.io.Serializable {
 		return timezoneId;
 	}
 
+	/**
+	 * Should not be used. Use setTimezone(ZoneId timezone) instead
+	 * @param timezoneId
+	 */
 	public void setTimezoneId(String timezoneId) {
 		this.timezoneId = timezoneId;
 	}
@@ -429,19 +433,27 @@ public class Account implements java.io.Serializable {
 	}
 
 	/* enum ids are protected for testing. they should not be used in code */
-	protected int getStatusId() {
+	public int getStatusId() {
 		return statusId;
 	}
 
-	protected void setStatusId(int statusId) {
+	/**
+	 * Should not ever be used. You should call setStatus(Status status) instead
+	 * @param statusId
+	 */
+	public void setStatusId(int statusId) {
 		this.statusId = statusId;
 	}
 
-	protected Integer getDisabledReasonId() {
+	public Integer getDisabledReasonId() {
 		return disabledReasonId;
 	}
 
-	protected void setDisabledReasonId(Integer disabledReasonId) {
+	/**
+	 * Should never be used. You should call setDisabledReason(DisabledReason disabledReason) instead
+	 * @param disabledReasonId
+	 */
+	public void setDisabledReasonId(Integer disabledReasonId) {
 		this.disabledReasonId = disabledReasonId;
 	}
 

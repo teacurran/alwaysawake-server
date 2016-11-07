@@ -1,4 +1,4 @@
-package com.wirelust.aa.api.v1.resources;
+package test.com.wirelust.aa.api.v1.resources;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -11,6 +11,7 @@ import com.wirelust.aa.data.model.ApiApplication;
 import com.wirelust.aa.data.repositories.AccountRepository;
 import com.wirelust.aa.data.repositories.ApiApplicationRepository;
 import com.wirelust.aa.data.repositories.AuthorizationRepository;
+import com.wirelust.aa.data.repositories.InviteRepository;
 import com.wirelust.aa.data.repositories.RestrictedUsernameRepository;
 import com.wirelust.aa.services.AccountService;
 import com.wirelust.aa.services.Configuration;
@@ -58,6 +59,10 @@ public class AccountResourceTest {
 	@Produces
 	@Mock
 	RestrictedUsernameRepository restrictedUsernameRepository;
+
+	@Produces
+	@Mock
+	InviteRepository inviteRepository;
 
 	@Test
 	public void shouldThrowExceptionWhenRegisterGetsInvalidClientId() {
