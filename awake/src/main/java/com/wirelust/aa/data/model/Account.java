@@ -1,5 +1,6 @@
 package com.wirelust.aa.data.model;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -141,7 +142,7 @@ public class Account implements java.io.Serializable {
 	private String avatar;
 
 	@Basic
-	private Integer timezone;
+	private String timezoneId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
@@ -188,6 +189,9 @@ public class Account implements java.io.Serializable {
 	@Transient
 	private DisabledReason disabledReason;
 
+	@Transient
+	private ZoneId timezone;
+
 	public Account() {
 		dateCreated = new Date();
 		dateModified = new Date();
@@ -199,12 +203,14 @@ public class Account implements java.io.Serializable {
 
 		populateStatusId();
 		populateDisabledReasonId();
+		populateTimezoneId();
 	}
 
 	@PostLoad
 	public void postLoad() {
 		populateStatus();
 		populateDisabledReason();
+		populateTimezone();
 	}
 
 	public void setUsername(String username) {
@@ -280,12 +286,12 @@ public class Account implements java.io.Serializable {
 		this.avatar = avatar;
 	}
 
-	public Integer getTimezone() {
-		return timezone;
+	public String getTimezoneId() {
+		return timezoneId;
 	}
 
-	public void setTimezone(Integer timezone) {
-		this.timezone = timezone;
+	public void setTimezoneId(String timezoneId) {
+		this.timezoneId = timezoneId;
 	}
 
 	public Date getDateCreated() {
@@ -376,6 +382,14 @@ public class Account implements java.io.Serializable {
 		return website;
 	}
 
+	public ZoneId getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(ZoneId timezone) {
+		this.timezone = timezone;
+	}
+
 	public Integer getFollowingCount() {
 		if (followingCount == null) {
 			followingCount = 0;
@@ -456,6 +470,22 @@ public class Account implements java.io.Serializable {
 			disabledReasonId = null;
 		} else {
 			disabledReasonId = disabledReason.getValue();
+		}
+	}
+
+	private void populateTimezone() {
+		if (timezoneId == null) {
+			timezone = null;
+		} else {
+			timezone = ZoneId.of(timezoneId);
+		}
+	}
+
+	private void populateTimezoneId() {
+		if (timezone == null) {
+			timezoneId = null;
+		} else {
+			timezoneId = timezone.getId();
 		}
 	}
 }

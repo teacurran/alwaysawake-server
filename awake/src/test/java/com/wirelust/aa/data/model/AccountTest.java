@@ -1,9 +1,13 @@
 package com.wirelust.aa.data.model;
 
+import java.time.ZoneId;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Date: 04-Nov-2016
@@ -11,6 +15,36 @@ import static org.junit.Assert.assertNull;
  * @author T. Curran
  */
 public class AccountTest {
+
+	public void shouldBeAblToUseGettersAndSetters() {
+		Account account = new Account();
+
+		assertFalse(account.isAdmin());
+		account.setAdmin(true);
+		assertTrue(account.isAdmin());
+
+		assertFalse(account.isDisabled());
+		account.setDisabled(true);
+		assertTrue(account.isDisabled());
+
+		assertNull(account.getPassword());
+		account.setPassword("testp");
+		assertEquals("testp", account.getPassword());
+
+		assertNull(account.getPasswordSalt());
+		account.setPasswordSalt("1234");
+		assertEquals("1234", account.getPasswordSalt());
+
+		assertNull(account.getLocation());
+		account.setLocation("Boston");
+		assertEquals("Boston", account.getLocation());
+
+		assertNull(account.getEmail());
+		account.setEmail("test@wirelust.com");
+		assertEquals("test@wirelust.com", account.getEmail());
+
+
+	}
 
 	@Test
 	public void shouldBeAbleToSetStatusId() {
@@ -65,6 +99,10 @@ public class AccountTest {
 		account.postLoad();
 		assertEquals(Account.Status.WAITING, account.getStatus());
 
+		account.setStatusId(-100);
+		account.postLoad();
+		assertNull(account.getStatus());
+
 	}
 
 	@Test
@@ -100,8 +138,30 @@ public class AccountTest {
 		account.postLoad();
 		assertEquals(Account.DisabledReason.EXCESS_PW_FAIL, account.getDisabledReason());
 
-				account.setDisabledReasonId(Account.DisabledReason.TOS_VIOLATION.getValue());
+		account.setDisabledReasonId(Account.DisabledReason.TOS_VIOLATION.getValue());
 		account.postLoad();
 		assertEquals(Account.DisabledReason.TOS_VIOLATION, account.getDisabledReason());
+
+		account.setDisabledReasonId(-100);
+		account.postLoad();
+		assertNull(account.getDisabledReason());
+	}
+
+	@Test
+	public void shouldBeAbleToSetTimezoneId() {
+		Account account = new Account();
+
+		account.setTimezone(ZoneId.of("America/Los_Angeles"));
+		account.prePersist();
+		assertEquals("America/Los_Angeles", account.getTimezoneId());
+	}
+
+	@Test
+	public void shouldBeAbleToSetTimezone() {
+		Account account = new Account();
+
+		account.setTimezoneId("America/Los_Angeles");
+		account.postLoad();
+		assertEquals(ZoneId.of("America/Los_Angeles"), account.getTimezone());
 	}
 }

@@ -32,7 +32,7 @@ public class AccountType {
 
 	protected String avatar;
 
-	protected Integer timezone;
+	protected String timezone;
 
 	protected Date dateCreated;
 
@@ -122,11 +122,11 @@ public class AccountType {
 		this.avatar = avatar;
 	}
 
-	public Integer getTimezone() {
+	public String getTimezone() {
 		return timezone;
 	}
 
-	public void setTimezone(Integer timezone) {
+	public void setTimezone(String timezone) {
 		this.timezone = timezone;
 	}
 

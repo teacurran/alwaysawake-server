@@ -43,7 +43,7 @@ public class AccountHelper {
 				: new Date(account.getDateModified().getTime()));
 			at.setDateLogin(account.getDateLogin() == null ? null : new Date(account.getDateLogin().getTime()));
 			at.setLocation(account.getLocation());
-			at.setTimezone(account.getTimezone());
+			at.setTimezone(account.getTimezoneId());
 			at.setWebsite(account.getWebsite());
 			at.setFollowersCount(account.getFollowersCount());
 			at.setFollowingCount(account.getFollowingCount());
