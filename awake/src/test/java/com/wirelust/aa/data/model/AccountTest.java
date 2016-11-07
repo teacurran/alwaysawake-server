@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class AccountTest {
 
+	@Test
 	public void shouldBeAblToUseGettersAndSetters() {
 		Account account = new Account();
 
