@@ -204,6 +204,8 @@ public class AccountResource {
 			invite.setDateClaimed(new Date());
 			invite.setUsedByAccount(account);
 			inviteRepository.save(invite);
+		} else {
+			throw new ApiException(EnumErrorCode.INVITE_CODE_USED);
 		}
 
 		authorizationRepository.attachAndRemove(auth);

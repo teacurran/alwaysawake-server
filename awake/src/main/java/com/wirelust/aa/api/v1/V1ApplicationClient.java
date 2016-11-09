@@ -82,6 +82,17 @@ public interface V1ApplicationClient {
 		@FormParam("username")
 		final String inUsername);
 
+	@Path("/claimInvite")
+	@POST
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public Response claimInvite(
+			@NotNull
+			@FormParam("oauth_token")
+			String inOauthToken,
+			@FormParam("inviteCode")
+			final String inInviteCode
+			);
+
 	@Path("/api/v1/accounts/login")
 	@POST
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

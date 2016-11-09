@@ -13,6 +13,7 @@ import com.wirelust.aa.api.v1.representations.ApiErrorType;
 import com.wirelust.aa.api.v1.representations.AuthType;
 import com.wirelust.aa.api.v1.representations.EnumErrorCode;
 import com.wirelust.aa.data.model.ApiApplication;
+import com.wirelust.aa.data.model.Invite;
 import com.wirelust.aa.data.model.RestrictedUsername;
 import com.wirelust.aa.util.StringUtils;
 import org.junit.Assert;
@@ -260,6 +261,31 @@ public class ApiTest {
 
 		AccountType accountType = response.readEntity(AccountType.class);
 		Assert.assertEquals(accountType.getEmail(), REG_USER_1_EMAIL);
+	}
+
+	@Test
+	public void shouldBeAbleToClaimInvite() throws Exception {
+		String claimValue = "1234xxx";
+
+		utx.begin();
+		Invite invite = new Invite();
+		invite.setValue(claimValue);
+		em.persist(invite);
+		em.flush();
+		utx.commit();
+
+
+		Response response = v1ApplicationClient.claimInvite(authorization.getToken(), claimValue);
+
+		Assert.assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+		AccountType accountType = response.readEntity(AccountType.class);
+		Assert.assertEquals(accountType.getEmail(), REG_USER_1_EMAIL);
+
+		// try running the same invite again
+		Response response2 = v1ApplicationClient.claimInvite(authorization.getToken(), claimValue);
+
+		Assert.assertEquals(HttpServletResponse.SC_BAD_REQUEST, response2.getStatus());
+
 	}
 
 	/**

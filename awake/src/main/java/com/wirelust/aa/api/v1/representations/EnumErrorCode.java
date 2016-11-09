@@ -99,6 +99,9 @@ public enum EnumErrorCode {
 	@XmlEnumValue("2011")
 	PASSWORD_RESET_KEY_NOT_FOUND(2011, Response.Status.BAD_REQUEST),
 
+	@XmlEnumValue("2012")
+	INVITE_CODE_USED(2012, Response.Status.BAD_REQUEST),
+
 	@XmlEnumValue("5001")
 	NOT_IMPLEMENTED(5001, Response.Status.INTERNAL_SERVER_ERROR);
 
