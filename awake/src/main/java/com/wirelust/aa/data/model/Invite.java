@@ -79,6 +79,7 @@ public class Invite {
 	}
 
 	public String getValue() {
+		
 		return value;
 	}
 

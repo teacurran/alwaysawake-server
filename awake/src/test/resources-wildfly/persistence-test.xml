@@ -11,7 +11,7 @@
 		<class>com.wirelust.aa.data.model.AccountSetting</class>
 		<class>com.wirelust.aa.data.model.ApiApplication</class>
 		<class>com.wirelust.aa.data.model.Authorization</class>
-		<class>com.wirelust.aa.data.model.LinkedService</class>
+		<class>com.wirelust.aa.data.model.Invite</class>
 		<class>com.wirelust.aa.data.model.LoginAudit</class>
 		<class>com.wirelust.aa.data.model.RestrictedUsername</class>
 
