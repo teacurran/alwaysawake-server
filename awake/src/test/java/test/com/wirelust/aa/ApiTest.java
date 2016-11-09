@@ -264,7 +264,7 @@ public class ApiTest {
 	}
 
 	@Test
-	public void shouldBeAbleToClaimInvite() throws Exception {
+	public void shouldBeAbleToProcessClaimInvite() throws Exception {
 		String claimValue = "1234xxx";
 
 		utx.begin();
@@ -274,12 +274,9 @@ public class ApiTest {
 		em.flush();
 		utx.commit();
 
-
 		Response response = v1ApplicationClient.claimInvite(authorization.getToken(), claimValue);
 
-		Assert.assertEquals(HttpServletResponse.SC_OK, response.getStatus());
-		AccountType accountType = response.readEntity(AccountType.class);
-		Assert.assertEquals(accountType.getEmail(), REG_USER_1_EMAIL);
+		Assert.assertEquals(HttpServletResponse.SC_NO_CONTENT, response.getStatus());
 
 		// try running the same invite again
 		Response response2 = v1ApplicationClient.claimInvite(authorization.getToken(), claimValue);

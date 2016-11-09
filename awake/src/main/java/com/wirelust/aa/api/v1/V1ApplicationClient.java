@@ -82,7 +82,7 @@ public interface V1ApplicationClient {
 		@FormParam("username")
 		final String inUsername);
 
-	@Path("/claimInvite")
+	@Path("/api/v1/accounts/claimInvite")
 	@POST
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Response claimInvite(

@@ -36,6 +36,7 @@ public class AccountHelper {
 		at.setAvatar(account.getAvatar());
 
 		if (withExtended) {
+			at.setEmail(account.getEmail());
 			at.setBackground(account.getBackground());
 			at.setBio(account.getBio());
 			at.setDateCreated(account.getDateCreated() == null ? null : new Date(account.getDateCreated().getTime()));
