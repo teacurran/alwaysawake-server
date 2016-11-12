@@ -278,10 +278,10 @@ public class ApiTest {
 
 		Assert.assertEquals(HttpServletResponse.SC_NO_CONTENT, response.getStatus());
 
-		// try running the same invite again
+		// try running the same invite again, it should fail
 		Response response2 = v1ApplicationClient.claimInvite(authorization.getToken(), claimValue);
-
 		Assert.assertEquals(HttpServletResponse.SC_BAD_REQUEST, response2.getStatus());
+
 
 	}
 
