@@ -361,19 +361,19 @@
 					<groupId>mysql</groupId>
 					<artifactId>mysql-connector-java</artifactId>
 					<version>${version.mysql.connector}</version>
-					<scope>test</scope>
+					<scope>compile</scope>
 				</dependency>
 				<dependency>
 					<groupId>org.hibernate</groupId>
 					<artifactId>hibernate-entitymanager</artifactId>
 					<version>${version.hibernate.tools.hibernate}</version>
-					<scope>test</scope>
+					<scope>compile</scope>
 				</dependency>
 				<dependency>
 					<groupId>org.hibernate</groupId>
 					<artifactId>hibernate-core</artifactId>
 					<version>${version.hibernate.tools.hibernate}</version>
-					<scope>test</scope>
+					<scope>compile</scope>
 				</dependency>
 				<!--
 				<dependency>
@@ -387,13 +387,13 @@
 					<groupId>org.jboss.as</groupId>
 					<artifactId>jboss-as-jpa-hibernate4</artifactId>
 					<version>7.1.1.Final</version>
-					<scope>test</scope>
+					<scope>compile</scope>
 				</dependency>
 				<dependency>
 					<groupId>org.hibernate</groupId>
 					<artifactId>hibernate-tools</artifactId>
 					<version>${version.hibernate.tools}</version>
-					<scope>test</scope>
+					<scope>compile</scope>
 					<exclusions>
 						<exclusion>
 							<groupId>commons-logging</groupId>
@@ -538,7 +538,7 @@
 												<path location="${project.build.directory}/classes"/>
 											</classpath>
 
-											<jpaconfiguration persistenceunit="personalapi"
+											<jpaconfiguration persistenceunit="alwaysawake-pu"
 															  propertyfile="${project.basedir}/src/main/resources-development/database.properties"/>
 
 											<hbm2ddl create="true" export="false" drop="true" outputfilename="drop-create-ddl.sql"
