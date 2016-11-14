@@ -6,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class AccountSetting implements Serializable {
 	@ManyToOne
 	private Account account;
 
-	@Basic
+	@Column(name="key")
 	private String key;
 
 	@Basic
