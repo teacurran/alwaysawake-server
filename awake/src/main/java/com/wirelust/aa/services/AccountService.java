@@ -35,7 +35,7 @@ public class AccountService implements Serializable {
 
 	public void setPassword(Account inAccount, String inPassword) {
 		if (inAccount == null || inPassword == null || inPassword.length() == 0) {
-			throw new IllegalArgumentException("inPassword cannot be empty");
+			throw new IllegalArgumentException("Account or Password is null");
 		}
 
 		try {
@@ -49,9 +49,8 @@ public class AccountService implements Serializable {
 	}
 
 	public void requestPasswordReset(Account inAccount) {
-
 		if (inAccount == null) {
-			return;
+			throw new IllegalArgumentException("Account may not be null");
 		}
 		if (StringUtils.isEmpty(inAccount.getEmail())) {
 			return;
