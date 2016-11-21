@@ -34,11 +34,7 @@ public class AccountService implements Serializable {
 	Messages messages;
 
 	public void setPassword(Account inAccount, String inPassword) {
-		if (inAccount == null) {
-			return;
-		}
-
-		if (inPassword == null || inPassword.length() == 0) {
+		if (inAccount == null || inPassword == null || inPassword.length() == 0) {
 			throw new IllegalArgumentException("inPassword cannot be empty");
 		}
 

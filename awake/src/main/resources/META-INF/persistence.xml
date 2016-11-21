@@ -11,9 +11,12 @@
 			<property name="hibernate.archive.autodetection" value="class, hbm"/>
 
 			<!-- use a custom plural naming strategy -->
+			<!-- Hibernate 4.x -->
 			<property name="hibernate.ejb.naming_strategy" value="com.wirelust.aa.data.jpa.PluralNamingStrategy"/>
+			<!-- Hibernate 5.x -->
 			<property name="hibernate.implicit_naming_strategy"  value="com.wirelust.aa.data.jpa.ImplicitNamingStrategyImpl"/>
 			<property name="hibernate.physical_naming_strategy"  value="com.wirelust.aa.data.jpa.PhysicalNamingStrategyImpl"/>
+
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
 			<property name="hibernate.globally_quoted_identifiers" value="true"/>
 
