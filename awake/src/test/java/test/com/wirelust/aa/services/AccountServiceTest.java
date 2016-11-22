@@ -2,6 +2,7 @@ package test.com.wirelust.aa.services;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.UUID;
 
 import com.wirelust.aa.data.model.Account;
 import com.wirelust.aa.data.model.AccountPasswordReset;
@@ -10,6 +11,7 @@ import com.wirelust.aa.exceptions.ServiceException;
 import com.wirelust.aa.services.AccountService;
 import com.wirelust.aa.services.Configuration;
 import com.wirelust.aa.services.MailService;
+import com.wirelust.aa.services.Messages;
 import com.wirelust.aa.util.PasswordHash;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -17,6 +19,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -46,6 +50,9 @@ public class AccountServiceTest {
 
 	@Mock
 	MailService mailService;
+
+	@Mock
+	Messages messages;
 
 	@InjectMocks
 	AccountService accountService;
@@ -87,11 +94,18 @@ public class AccountServiceTest {
 	}
 
 	@Test
-	@Ignore
 	public void shouldDoNothingWithNoEmailAccountPasswordReset() {
 
 		when(configuration.getSetting(eq("email.resetpassword.url"))).thenReturn("http://127.0.0.1/?#KEY#");
-		when(accountPasswordResetRepository.save(any())).then(returnsFirstArg());
+		when(accountPasswordResetRepository.save(any()))
+			.thenAnswer(new Answer<AccountPasswordReset>() {
+				public AccountPasswordReset answer(InvocationOnMock invocation) {
+					AccountPasswordReset passwordReset = invocation.getArgumentAt(0, AccountPasswordReset.class);
+					passwordReset.setUuid(UUID.randomUUID().toString());
+					return passwordReset;
+				}
+			});
+		when(messages.getMessage(any())).thenReturn("test message");
 
 		Account account = new Account();
 		account.setEmail("none@wirelust.com");
@@ -99,6 +113,16 @@ public class AccountServiceTest {
 		accountService.requestPasswordReset(account);
 
 		verify(accountPasswordResetRepository).save(any(AccountPasswordReset.class));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldThrowExceptionOnNullAccountCheckPassword() {
+		accountService.checkPassword(null, null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldThrowExceptionOnNullAccountCheckPassword2() {
+		accountService.checkPassword(new Account(), null);
 	}
 
 }

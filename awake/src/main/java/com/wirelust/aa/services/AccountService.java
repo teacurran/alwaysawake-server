@@ -74,7 +74,7 @@ public class AccountService implements Serializable {
 
 	public boolean checkPassword(Account inAccount, String inPassword) {
 		if (inAccount == null || inPassword == null) {
-			return false;
+			throw new IllegalArgumentException("Account or Password is null");
 		}
 
 		return PasswordHash.check(inPassword, inAccount.getPasswordSalt(), inAccount.getPassword());
