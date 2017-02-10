@@ -26,7 +26,7 @@ import org.hibernate.annotations.BatchSize;
  * @author T. Curran
  */
 @Entity
-public class Post {
+public class Topic {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

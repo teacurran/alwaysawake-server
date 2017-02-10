@@ -17,11 +17,11 @@ import javax.persistence.TemporalType;
  * @author T. Curran
  */
 @Entity
-public class PostReply {
+public class TopicReply {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private	 Long id;
+	private Long id;
 
 	@ManyToOne
 	private Account author;
