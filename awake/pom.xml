@@ -147,9 +147,9 @@
 			<type>pom</type>
 		</dependency>
 		<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>wildfly-embedded</artifactId>
-			<version>${version.wildfly}</version>
+			<groupId>org.wildfly.arquillian</groupId>
+			<artifactId>wildfly-arquillian-container-managed</artifactId>
+			<version>${version.arquillian.wildfly}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -173,10 +173,15 @@
 		<dependency>
 			<groupId>org.jglue.cdi-unit</groupId>
 			<artifactId>cdi-unit</artifactId>
-			<version>3.1.2</version>
+			<version>4.1.0</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0.SP1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -253,9 +258,9 @@
 			</activation>
 			<dependencies>
 				<dependency>
-					<groupId>org.wildfly</groupId>
-					<artifactId>wildfly-arquillian-container-embedded</artifactId>
-					<version>${version.wildfly}</version>
+					<groupId>org.wildfly.arquillian</groupId>
+					<artifactId>wildfly-arquillian-container-managed</artifactId>
+					<version>${version.arquillian.wildfly}</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>

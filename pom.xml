@@ -23,9 +23,10 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 
-		<version.arquillian>1.1.11.Final</version.arquillian>
+		<version.arquillian>1.1.13.Final</version.arquillian>
 		<version.arquillian.jacoco>1.0.0.Alpha8</version.arquillian.jacoco>
 		<version.arquillian.suite>1.1.2</version.arquillian.suite>
+		<version.arquillian.wildfly>2.1.1.Final</version.arquillian.wildfly>
 		<version.deltaspike>1.4.1</version.deltaspike>
 		<version.ee>1.0.2.Final</version.ee>
 		<version.findbugs>3.0.0</version.findbugs>
@@ -34,7 +35,7 @@
 		<!-- Hibernate Tools requires a different version than what is shipped with the app serever-->
 		<version.hibernate.tools>5.2.0.CR1</version.hibernate.tools>
 		<version.hibernate.tools.hibernate>5.2.3.Final</version.hibernate.tools.hibernate>
-		<version.jacoco>0.7.7.201606060606</version.jacoco>
+		<version.jacoco>0.8.2</version.jacoco>
 		<version.junit>4.12</version.junit>
 		<version.mockito>1.10.19</version.mockito>
 		<version.powermock>1.6.5</version.powermock>
@@ -44,7 +45,8 @@
 		<version.surefire>2.19.1</version.surefire>
 		<version.war.plugin>2.1.1</version.war.plugin>
 		<version.mysql.connector>5.1.28</version.mysql.connector>
-		<version.wildfly>8.2.0.Final</version.wildfly>
+		<version.weld>3.0.5.Final</version.weld>
+		<version.wildfly>10.1.0.Final</version.wildfly>
 	</properties>
 
 	<modules>
@@ -148,9 +150,31 @@
 			<type>pom</type>
 		</dependency>
 		<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>wildfly-arquillian-container-embedded</artifactId>
-			<version>${version.wildfly}</version>
+			<groupId>org.wildfly.arquillian</groupId>
+			<artifactId>wildfly-arquillian-container-managed</artifactId>
+			<version>${version.arquillian.wildfly}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.weld</groupId>
+			<artifactId>weld-core-impl</artifactId>
+			<version>${version.weld}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<!-- or weld-se -->
+			<artifactId>weld-se-core</artifactId>
+			<!-- Your preferred Weld version: -->
+			<version>${version.weld}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.weld.module</groupId>
+			<artifactId>weld-web</artifactId>
+			<version>${version.weld}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
